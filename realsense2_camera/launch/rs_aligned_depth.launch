@@ -1,10 +1,11 @@
+<?xml version="1.0"?>
 <launch>
   <arg name="serial_no" default=""/>
   <arg name="json_file_path" default=""/>
 
   <arg name="fisheye_width"       default="640"/>
   <arg name="fisheye_height"      default="480"/>
-  <arg name="enable_fisheye"      default="true"/>
+  <arg name="enable_fisheye"      default="false"/>
 
   <arg name="depth_width"         default="640"/>
   <arg name="depth_height"        default="480"/>
@@ -31,7 +32,7 @@
   <arg name="accel_fps"           default="1000"/>
   <arg name="enable_imu"          default="true"/>
 
-  <arg name="enable_pointcloud"   default="false"/>
+  <arg name="enable_pointcloud"   default="true"/>
   <arg name="enable_sync"         default="true"/>
   <arg name="align_depth"         default="true"/>
 
