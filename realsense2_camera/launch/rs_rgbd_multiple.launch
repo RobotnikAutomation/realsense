@@ -42,13 +42,11 @@ Processing enabled by this node:
 
   <arg name="serial_no_camera1" default="745212070214"/> 
   <arg name="serial_no_camera2" default="801312070896"/> 
-  
-  
-  <arg name="manager1"             default="realsense2_camera_manager1"/>
-  <arg name="manager2"             default="realsense2_camera_manager2"/>
 
   <!-- Camera device specific arguments -->
-
+  
+  
+  <arg name="manager"             default="realsense2_camera_manager"/>
   <arg name="json_file_path"      default=""/>
 
   <arg name="fisheye_width"       default="1280"/>
@@ -118,7 +116,7 @@ Processing enabled by this node:
 
     <!-- Launch the camera device nodelet-->
     <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
-      <arg name="manager"                  value="$(arg manager1)"/>
+      <arg name="manager"                  value="$(arg manager)"/>
       <arg name="serial_no"                value="$(arg serial_no_camera1)"/>
       <arg name="json_file_path"           value="$(arg json_file_path)"/>
 
@@ -159,7 +157,7 @@ Processing enabled by this node:
     <!-- RGB processing -->
     <include if="$(arg rgb_processing)"
              file="$(find rgbd_launch)/launch/includes/rgb.launch.xml">
-      <arg name="manager"                       value="$(arg manager1)" />
+      <arg name="manager"                       value="$(arg manager)" />
       <arg name="respawn"                       value="$(arg respawn)" />
       <arg name="rgb"                           value="$(arg rgb)" />
       <arg name="debayer_processing"            value="$(arg debayer_processing)" />
@@ -167,7 +165,7 @@ Processing enabled by this node:
 
     <group if="$(eval depth_registered_processing and sw_registered_processing)">
       <node pkg="nodelet" type="nodelet" name="register_depth"
-            args="load depth_image_proc/register $(arg manager1) $(arg bond)" respawn="$(arg respawn)">
+            args="load depth_image_proc/register $(arg manager) $(arg bond)" respawn="$(arg respawn)">
         <remap from="rgb/camera_info"             to="$(arg rgb)/camera_info" />
         <remap from="depth/camera_info"           to="$(arg depth)/camera_info" />
         <remap from="depth/image_rect"            to="$(arg depth)/image_rect_raw" />
@@ -176,7 +174,7 @@ Processing enabled by this node:
 
       <!-- Publish registered XYZRGB point cloud with software registered input -->
       <node pkg="nodelet" type="nodelet" name="points_xyzrgb_sw_registered"
-            args="load depth_image_proc/point_cloud_xyzrgb $(arg manager1) $(arg bond)" respawn="$(arg respawn)">
+            args="load depth_image_proc/point_cloud_xyzrgb $(arg manager) $(arg bond)" respawn="$(arg respawn)">
         <remap from="rgb/image_rect_color"        to="$(arg rgb)/image_rect_color" />
         <remap from="rgb/camera_info"             to="$(arg rgb)/camera_info" />
         <remap from="depth_registered/image_rect" to="$(arg depth_registered_filtered)/sw_registered/image_rect_raw" />
@@ -187,7 +185,7 @@ Processing enabled by this node:
     <group if="$(eval depth_registered_processing and hw_registered_processing)">
       <!-- Publish registered XYZRGB point cloud with hardware registered input (ROS Realsense depth alignment) -->
       <node pkg="nodelet" type="nodelet" name="points_xyzrgb_hw_registered"
-            args="load depth_image_proc/point_cloud_xyzrgb $(arg manager1) $(arg bond)" respawn="$(arg respawn)">
+            args="load depth_image_proc/point_cloud_xyzrgb $(arg manager) $(arg bond)" respawn="$(arg respawn)">
         <remap from="rgb/image_rect_color"        to="$(arg rgb)/image_rect_color" />
         <remap from="rgb/camera_info"             to="$(arg rgb)/camera_info" />
         <remap from="depth_registered/image_rect" to="$(arg depth_registered)/image_raw" />
@@ -203,7 +201,7 @@ Processing enabled by this node:
 
     <!-- Launch the camera device nodelet-->
     <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
-      <arg name="manager"                  value="$(arg manager2)"/>
+      <arg name="manager"                  value="$(arg manager)"/>
       <arg name="serial_no"                value="$(arg serial_no_camera2)"/>
       <arg name="json_file_path"           value="$(arg json_file_path)"/>
 
@@ -244,7 +242,7 @@ Processing enabled by this node:
     <!-- RGB processing -->
     <include if="$(arg rgb_processing)"
              file="$(find rgbd_launch)/launch/includes/rgb.launch.xml">
-      <arg name="manager"                       value="$(arg manager2)" />
+      <arg name="manager"                       value="$(arg manager)" />
       <arg name="respawn"                       value="$(arg respawn)" />
       <arg name="rgb"                           value="$(arg rgb)" />
       <arg name="debayer_processing"            value="$(arg debayer_processing)" />
@@ -252,7 +250,7 @@ Processing enabled by this node:
 
     <group if="$(eval depth_registered_processing and sw_registered_processing)">
       <node pkg="nodelet" type="nodelet" name="register_depth"
-            args="load depth_image_proc/register $(arg manager2) $(arg bond)" respawn="$(arg respawn)">
+            args="load depth_image_proc/register $(arg manager) $(arg bond)" respawn="$(arg respawn)">
         <remap from="rgb/camera_info"             to="$(arg rgb)/camera_info" />
         <remap from="depth/camera_info"           to="$(arg depth)/camera_info" />
         <remap from="depth/image_rect"            to="$(arg depth)/image_rect_raw" />
@@ -261,7 +259,7 @@ Processing enabled by this node:
 
       <!-- Publish registered XYZRGB point cloud with software registered input -->
       <node pkg="nodelet" type="nodelet" name="points_xyzrgb_sw_registered"
-            args="load depth_image_proc/point_cloud_xyzrgb $(arg manager2) $(arg bond)" respawn="$(arg respawn)">
+            args="load depth_image_proc/point_cloud_xyzrgb $(arg manager) $(arg bond)" respawn="$(arg respawn)">
         <remap from="rgb/image_rect_color"        to="$(arg rgb)/image_rect_color" />
         <remap from="rgb/camera_info"             to="$(arg rgb)/camera_info" />
         <remap from="depth_registered/image_rect" to="$(arg depth_registered_filtered)/sw_registered/image_rect_raw" />
@@ -272,7 +270,7 @@ Processing enabled by this node:
     <group if="$(eval depth_registered_processing and hw_registered_processing)">
       <!-- Publish registered XYZRGB point cloud with hardware registered input (ROS Realsense depth alignment) -->
       <node pkg="nodelet" type="nodelet" name="points_xyzrgb_hw_registered"
-            args="load depth_image_proc/point_cloud_xyzrgb $(arg manager2) $(arg bond)" respawn="$(arg respawn)">
+            args="load depth_image_proc/point_cloud_xyzrgb $(arg manager) $(arg bond)" respawn="$(arg respawn)">
         <remap from="rgb/image_rect_color"        to="$(arg rgb)/image_rect_color" />
         <remap from="rgb/camera_info"             to="$(arg rgb)/camera_info" />
         <remap from="depth_registered/image_rect" to="$(arg depth_registered)/image_raw" />
