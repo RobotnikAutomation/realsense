@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!--
 Copyright (c) 2018 Intel Corporation
 
@@ -107,10 +108,11 @@ Processing enabled by this node:
   <arg name="sw_registered_processing"        default="true" unless="$(arg align_depth)" />
   <arg name="sw_registered_processing"        default="false" if="$(arg align_depth)" />
 
-  <group ns="$(arg namespace)">
-
+  <group ns="$(arg namespace)">	
+    
     <!-- Launch the camera device nodelet-->
     <include file="$(find realsense_ros_camera)/launch/includes/nodelet.launch.xml">
+      <arg name="namespace"				   value="$(arg namespace)"/>
       <arg name="manager"                  value="$(arg manager)"/>
       <arg name="serial_no"                value="$(arg serial_no)"/>
       <arg name="json_file_path"           value="$(arg json_file_path)"/>
