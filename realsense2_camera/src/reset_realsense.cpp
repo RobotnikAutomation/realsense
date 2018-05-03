@@ -127,6 +127,10 @@ int main(int argc, char **argv)
     kill_node("rgb_debayer");
     kill_node("rgb_rectify_color");
     kill_node("rgb_rectify_mono");
+    kill_node("color_rectify_color");
+    kill_node("points_xyzrgb_hw_registered");
+    //kill_node("realsense2_camera");
+    //kill_node("realsense2_camera_manager");
 
 
     //////////////////////////////////
@@ -134,13 +138,13 @@ int main(int argc, char **argv)
     //////////////////////////////////
 
     // Find all R200's
-    reset_all_devices("0a80");
+    //reset_all_devices("0a80");
     // SR300's
-    reset_all_devices("0aa5");
-    reset_all_devices("0ab3");
+    //reset_all_devices("0aa5");
+    //reset_all_devices("0ab3");
     // ZR300's
-    reset_all_devices("0ad0");
-    reset_all_devices("0ACB");
+    //reset_all_devices("0ad0");
+    //reset_all_devices("0ACB");
     //D435
     reset_all_devices("0b07");
 
