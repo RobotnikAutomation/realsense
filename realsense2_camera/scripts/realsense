@@ -1,9 +1,0 @@
-#!/bin/bash
-echo "Camera reset..."
-rosrun realsense2_camera reset_realsense
-sleep 5
-echo "Launching cameras...";
-roslaunch realsense2_camera rs_rgbd_multiple.launch
-#sleep 5
-#echo "Reset auto exposure..."
-#rosrun realsense2_camera reset_auto_exposure.py
