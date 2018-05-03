@@ -1,5 +1,5 @@
 #include "../include/base_realsense_node.h"
-#include "../include/sr300_node.h"
+#include "../include/rs435_node.h"
 
 using namespace realsense_ros_camera;
 
