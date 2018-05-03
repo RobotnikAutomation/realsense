@@ -2,7 +2,7 @@
 echo "Camera reset..."
 rosrun realsense2_camera reset_realsense
 sleep 5
-echo "Launchin cameras...";
+echo "Launching cameras...";
 roslaunch realsense2_camera rs_rgbd_multiple.launch
 #sleep 5
 #echo "Reset auto exposure..."
