@@ -6,6 +6,8 @@
 #include "../include/rs415_node.h"
 #include "../include/rs435_node.h"
 #include <iostream>
+#include <mutex>
+#include <condition_variable>
 #include <map>
 
 using namespace realsense_ros_camera;
